@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>xan | @olekyyy</title>
+    <title>xan</title>
     
     <link id="dynamic-favicon" rel="icon" type="image/png" href="">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -19,12 +18,7 @@
             --custom-cursor: url('https://cur.cursors-4u.net/games/gam-4/gam372.cur');
         }
 
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; 
-            cursor: var(--custom-cursor), auto !important; 
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: var(--custom-cursor), auto !important; }
 
         body {
             background: #000; color: white; font-family: 'Inter', sans-serif;
@@ -39,30 +33,23 @@
         #splash.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
         #bg-video {
-            position: fixed; top: 50%; left: 50%;
-            min-width: 100%; min-height: 100%;
-            width: auto; height: auto; z-index: -1;
-            transform: translate(-50%, -50%);
-            object-fit: cover;
-            filter: brightness(0.4) blur(2px);
+            position: fixed; top: 50%; left: 50%; min-width: 100%; min-height: 100%;
+            width: auto; height: auto; z-index: -1; transform: translate(-50%, -50%);
+            object-fit: cover; filter: brightness(0.4) blur(2px);
         }
 
         .card {
             background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--border); border-radius: 24px; padding: 40px; width: 400px;
             text-align: center; 
-            /* Subtle outer glow on the card */
             box-shadow: 0 0 25px rgba(255, 255, 255, 0.15), 0 25px 60px rgba(0,0,0,0.9);
             position: relative; z-index: 10;
         }
 
-        @keyframes avatar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
         .avatar-container { position: relative; width: 100px; height: 100px; margin: 0 auto 15px; }
         .avatar-main { 
             width: 100%; height: 100%; border-radius: 50%; 
-            border: 2px solid rgba(255,255,255,0.2); 
-            object-fit: cover;
+            border: 2px solid rgba(255,255,255,0.2); object-fit: cover;
             transition: box-shadow 0.3s ease;
         }
         .avatar-container:hover .avatar-main { box-shadow: var(--glow); }
@@ -74,27 +61,15 @@
         .offline { background: #747f8d; }
 
         #name-wrapper {
-            position: relative;
-            display: inline-block;
-            padding: 0 20px;
-            /* Subtle glow around the name area */
+            position: relative; display: inline-block; padding: 0 20px;
             text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
         }
         .username { 
             font-size: 2.2rem; font-weight: 800; background: linear-gradient(to bottom, #fff, #888); 
             -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; 
-            position: relative; z-index: 2;
         }
         
-        .particle {
-            position: absolute;
-            border-radius: 50%;
-            pointer-events: none;
-            z-index: 1;
-            filter: blur(0.5px); 
-            animation: fall linear forwards;
-        }
-
+        .particle { position: absolute; border-radius: 50%; pointer-events: none; z-index: 1; filter: blur(0.5px); animation: fall linear forwards; }
         @keyframes fall {
             0% { transform: translateY(-35px); opacity: 0; }
             20% { opacity: 1; }
@@ -117,11 +92,8 @@
             text-decoration: none; color: inherit; transition: all 0.3s ease;
         }
         .box:hover { box-shadow: var(--glow); }
-
         .pfp-small { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; }
         
-        .roblox-box:hover #rbx-pfp { animation: avatar-spin 10s linear infinite; }
-
         .mini-progress { width: 100%; margin-top: 8px; display: none; }
         .progress-bg { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
         #progress-fill { width: 0%; height: 100%; background: #fff; box-shadow: 0 0 10px #fff; }
@@ -138,35 +110,17 @@
         #audio-progress-bar { width: 0%; height: 100%; background: #fff; box-shadow: 0 0 10px #fff; }
 
         .vol-container { position: relative; display: flex; align-items: center; justify-content: center; }
-        #vol-btn { width: 24px; text-align: center; transition: color 0.2s ease; }
-        
+        #vol-btn { width: 24px; text-align: center; }
         .vol-popover {
             position: absolute; bottom: 180%; left: 50%; transform: translateX(-50%);
             width: 34px; height: 110px; background: rgba(10, 10, 10, 0.95);
             border: 1px solid var(--border); border-radius: 12px;
             display: none; justify-content: center; align-items: center;
-            box-shadow: 0 0 15px rgba(255, 255, 255, 0.15); z-index: 50;
         }
         .vol-popover.active { display: flex; }
-        
-        .vol-track { 
-            position: relative; width: 6px; height: 80px; background: #1a1a1a; border-radius: 3px; 
-            user-select: none;
-        }
-        .vol-fill {
-            position: absolute; bottom: 0; left: 0; width: 100%; height: 100%;
-            background: white; border-radius: 3px; box-shadow: 0 0 8px rgba(255,255,255,0.6), inset 0 0 3px black; 
-            pointer-events: none;
-        }
-        .vol-thumb {
-            position: absolute; bottom: 100%; left: 50%; transform: translate(-50%, 50%);
-            width: 14px; height: 14px; background: white; border-radius: 50%;
-            border: 2px solid black; box-shadow: 0 0 10px white; pointer-events: none;
-        }
-
-        .vol-track::before {
-            content: ''; position: absolute; top: -10px; bottom: -10px; left: -15px; right: -15px;
-        }
+        .vol-track { position: relative; width: 6px; height: 80px; background: #1a1a1a; border-radius: 3px; }
+        .vol-fill { position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: white; border-radius: 3px; }
+        .vol-thumb { position: absolute; bottom: 100%; left: 50%; transform: translate(-50%, 50%); width: 14px; height: 14px; background: white; border-radius: 50%; }
     </style>
 </head>
 <body>
@@ -183,10 +137,8 @@
             <div id="status-badge" class="status-badge offline"></div>
         </div>
 
-        <div id="name-wrapper">
-            <h1 class="username">xan</h1>
-        </div>
-        <p style="color:#777; margin-bottom:10px; text-shadow: 0 0 5px rgba(255,255,255,0.1);">@xanipulate</p>
+        <div id="name-wrapper"><h1 class="username">xan</h1></div>
+        <p style="color:#777; margin-bottom:10px;">@xanipulate</p>
 
         <div class="socials">
             <a href="https://www.instagram.com/olekyyy/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
@@ -205,21 +157,15 @@
             </div>
         </div>
 
-        <a href="https://www.roblox.com/users/1115362461/profile" target="_blank" class="box roblox-box">
+        <a href="https://www.roblox.com/users/1115362461/profile" target="_blank" class="box">
             <img id="rbx-pfp" class="pfp-small" src="">
-            <div>
-                <strong id="rbx-display">Roblox</strong><br>
-                <span id="rbx-user" style="color: #888; font-size: 0.8rem;">@Loading</span>
-            </div>
+            <div><strong id="rbx-display">Roblox</strong><br><span id="rbx-user" style="color: #888; font-size: 0.8rem;">@Loading</span></div>
         </a>
 
         <div class="profile-player">
             <div id="audio-controls">
-                <i id="play-icon" class="fas fa-play" style="width: 16px; text-align: center;"></i>
-                <div id="audio-progress-container">
-                    <div id="audio-progress-bar"></div>
-                </div>
-                
+                <i id="play-icon" class="fas fa-play" style="width: 16px;"></i>
+                <div id="audio-progress-container"><div id="audio-progress-bar"></div></div>
                 <div class="vol-container">
                     <i class="fas fa-volume-up" id="vol-btn"></i>
                     <div class="vol-popover" id="vol-popover">
@@ -229,7 +175,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
             <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: #555; margin-top: 10px;">
                 <span id="audio-curr">0:00</span><span id="audio-total">0:00</span>
@@ -245,20 +190,16 @@
         const audio = document.getElementById('main-audio');
         const playBtn = document.getElementById('play-icon');
 
-        const nameWrapper = document.getElementById('name-wrapper');
         function spawnParticle() {
             if (document.hidden) return;
             const p = document.createElement('div');
             p.className = 'particle';
             const size = Math.random() * 3 + 2; 
-            const left = Math.random() * 100; 
-            const duration = Math.random() * 2 + 1.5; 
-            p.style.width = `${size}px`; p.style.height = `${size}px`; p.style.left = `${left}%`;
-            p.style.background = '#ffffff';
-            p.style.boxShadow = `0 0 10px 2px rgba(255,255,255,0.8), 0 0 5px white`;
-            p.style.animationDuration = `${duration}s`;
-            nameWrapper.appendChild(p);
-            setTimeout(() => { if(p.parentNode) p.remove(); }, duration * 1000);
+            p.style.width = `${size}px`; p.style.height = `${size}px`; p.style.left = `${Math.random() * 100}%`;
+            p.style.background = '#fff'; p.style.boxShadow = `0 0 10px 2px rgba(255,255,255,0.8)`;
+            const duration = Math.random() * 2 + 1.5; p.style.animationDuration = `${duration}s`;
+            document.getElementById('name-wrapper').appendChild(p);
+            setTimeout(() => p.remove(), duration * 1000);
         }
         setInterval(spawnParticle, 300);
 
@@ -269,36 +210,31 @@
         const volThumb = document.getElementById('vol-thumb');
         let isDraggingVol = false;
 
-        volBtn.addEventListener('click', (e) => { e.stopPropagation(); volPopover.classList.toggle('active'); });
+        volBtn.onclick = (e) => { e.stopPropagation(); volPopover.classList.toggle('active'); };
 
         function updateVolume(e) {
             const rect = volTrack.getBoundingClientRect();
-            let y = e.clientY - rect.top;
-            y = Math.max(0, Math.min(y, rect.height));
-            let percentage = 1 - (y / rect.height); 
+            let percentage = 1 - (Math.max(0, Math.min(e.clientY - rect.top, rect.height)) / rect.height);
             audio.volume = percentage;
             volFill.style.height = `${percentage * 100}%`;
             volThumb.style.bottom = `${percentage * 100}%`;
-            if (percentage === 0) volBtn.className = "fas fa-volume-mute";
-            else if (percentage < 0.5) volBtn.className = "fas fa-volume-down";
-            else volBtn.className = "fas fa-volume-up";
+            volBtn.className = percentage === 0 ? "fas fa-volume-mute" : (percentage < 0.5 ? "fas fa-volume-down" : "fas fa-volume-up");
         }
 
-        volTrack.addEventListener('mousedown', (e) => { isDraggingVol = true; updateVolume(e); });
-        document.addEventListener('mousemove', (e) => { if (isDraggingVol) updateVolume(e); });
-        document.addEventListener('mouseup', () => { isDraggingVol = false; });
+        volTrack.onmousedown = (e) => { isDraggingVol = true; updateVolume(e); };
+        document.onmousemove = (e) => { if (isDraggingVol) updateVolume(e); };
+        document.onmouseup = () => { isDraggingVol = false; };
 
         function enterSite() {
             document.getElementById('splash').classList.add('hidden');
             document.getElementById('bg-video').play();
-            audio.play();
-            playBtn.className = "fas fa-pause";
+            audio.play(); playBtn.className = "fas fa-pause";
         }
 
-        playBtn.addEventListener('click', () => {
+        playBtn.onclick = () => {
             if (audio.paused) { audio.play(); playBtn.className = "fas fa-pause"; } 
             else { audio.pause(); playBtn.className = "fas fa-play"; }
-        });
+        };
 
         audio.ontimeupdate = () => {
             const perc = (audio.currentTime / audio.duration) * 100;
@@ -347,28 +283,20 @@
             const game = d.activities.find(a => a.type === 0 && a.name !== "Spotify");
             if (game) {
                 text.innerHTML = `Playing <b>${game.name}</b><br><span style="color:#888;">${game.details || "In-game"}</span>`;
-                pfp.src = (game.assets && game.assets.large_image) 
-                    ? (game.assets.large_image.startsWith("mp:external") 
-                        ? game.assets.large_image.replace(/mp:external\/.*\/https\//, "https://")
-                        : `https://cdn.discordapp.com/app-assets/${game.application_id}/${game.assets.large_image}.png`)
-                    : avatarUrl;
+                pfp.src = (game.assets && game.assets.large_image) ? (game.assets.large_image.startsWith("mp:external") ? game.assets.large_image.replace(/mp:external\/.*\/https\//, "https://") : `https://cdn.discordapp.com/app-assets/${game.application_id}/${game.assets.large_image}.png`) : avatarUrl;
                 return;
             }
 
-            // --- FIXED: SPOTIFY KEY IS "song" NOT "track" ---
+            // --- FIXED SPOTIFY LOGIC ---
             if (d.listening_to_spotify && d.spotify) {
-                const songName = d.spotify.song || "Unknown Song";
-                const artistName = d.spotify.artist || "Unknown Artist";
-
-                text.innerHTML = `Listening to <b>${songName}</b><br><span style="color:#888;">by ${artistName}</span>`;
+                text.innerHTML = `Listening to <b>${d.spotify.song || "Song"}</b><br><span style="color:#888;">by ${d.spotify.artist || "Artist"}</span>`;
                 pfp.src = d.spotify.album_art_url || avatarUrl;
                 bar.style.display = 'block';
                 startBar(d.spotify.timestamps);
                 return;
             }
 
-            text.innerHTML = " ";
-            pfp.src = avatarUrl;
+            text.innerHTML = " "; pfp.src = avatarUrl;
         }
 
         function startBar(ts) {
