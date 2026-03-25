@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>xanz</title>
+    <title>xan</title>
     
     <link id="dynamic-favicon" rel="icon" type="image/png" href="">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -109,22 +109,36 @@
             display: flex; flex-direction: column; gap: 12px; transition: all 0.3s ease;
         }
         .profile-player:hover { box-shadow: var(--glow); }
-        .player-row { display: flex; align-items: center; gap: 15px; }
+        .player-row { display: flex; align-items: center; gap: 15px; position: relative; }
         
         #audio-progress-container { flex-grow: 1; height: 5px; background: rgba(255,255,255,0.1); border-radius: 5px; cursor: pointer; overflow: hidden; }
         #audio-progress-bar { width: 0%; height: 100%; background: #fff; box-shadow: 0 0 10px #fff; }
 
-        /* AMAZING VERTICAL SLIDER */
-        .volume-zone { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 30px; }
+        /* --- AMAZING VERTICAL VOLUME SLIDER --- */
+        .volume-wrapper { position: relative; display: flex; align-items: center; justify-content: center; }
+        
+        .volume-slider-container {
+            position: absolute; bottom: 35px; left: 50%; transform: translateX(-50%);
+            background: rgba(15, 15, 15, 0.95); border: 1px solid var(--border);
+            padding: 15px 10px; border-radius: 12px; display: none;
+            flex-direction: column; align-items: center; z-index: 100;
+            box-shadow: 0 0 20px rgba(0,0,0,0.8);
+        }
+
+        .volume-wrapper:hover .volume-slider-container { display: flex; }
+
         .volume-slider {
             -webkit-appearance: none; appearance: none;
-            width: 4px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 10px; outline: none;
+            width: 5px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 10px; outline: none;
             cursor: pointer; writing-mode: bt-lr; -webkit-appearance: slider-vertical;
         }
+
+        /* The Glow Thumb from your screenshot */
         .volume-slider::-webkit-slider-thumb {
             -webkit-appearance: none; appearance: none;
-            width: 12px; height: 12px; background: #fff; border-radius: 50%;
-            box-shadow: 0 0 15px 2px #fff; border: 2px solid #000;
+            width: 14px; height: 14px; background: #fff; border-radius: 4px;
+            box-shadow: 0 0 15px 4px rgba(255,255,255,0.9); /* Intense Glow */
+            border: 1px solid #000; cursor: pointer;
         }
     </style>
 </head>
@@ -180,9 +194,11 @@
                     </div>
                 </div>
 
-                <div class="volume-zone">
-                    <input type="range" id="volume-ctrl" class="volume-slider" min="0" max="1" step="0.01" value="0.5">
-                    <i id="vol-icon" class="fas fa-volume-up" style="font-size: 0.7rem; opacity: 0.5;"></i>
+                <div class="volume-wrapper">
+                    <div class="volume-slider-container">
+                        <input type="range" id="volume-ctrl" class="volume-slider" min="0" max="1" step="0.01" value="0.5">
+                    </div>
+                    <i id="vol-icon" class="fas fa-volume-up" style="font-size: 0.9rem; cursor: pointer; opacity: 0.7;"></i>
                 </div>
             </div>
         </div>
@@ -221,15 +237,14 @@
             else { audio.pause(); playBtn.className = "fas fa-play"; }
         };
 
-        // Volume Logic
         volSlider.oninput = (e) => {
             audio.volume = e.target.value;
             const icon = document.getElementById('vol-icon');
             if (audio.volume == 0) icon.className = "fas fa-volume-mute";
+            else if (audio.volume < 0.5) icon.className = "fas fa-volume-down";
             else icon.className = "fas fa-volume-up";
         };
 
-        // Click to Seek Logic
         document.getElementById('audio-progress-container').onclick = (e) => {
             const rect = e.target.getBoundingClientRect();
             const pos = (e.clientX - rect.left) / rect.width;
@@ -277,9 +292,7 @@
             }
 
             if (d.listening_to_spotify && d.spotify) {
-                const song = d.spotify.song || "Song";
-                const artist = d.spotify.artist || "Artist";
-                text.innerHTML = `Listening to <b>${song}</b><br><span style="color:#888;">by ${artist}</span>`;
+                text.innerHTML = `Listening to <b>${d.spotify.song || "Song"}</b><br><span style="color:#888;">by ${d.spotify.artist || "Artist"}</span>`;
                 pfp.src = d.spotify.album_art_url || avatarUrl;
                 bar.style.display = 'block';
                 startBar(d.spotify.timestamps);
