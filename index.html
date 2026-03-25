@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>xan</title>
+    <title>xan | @olekyyy</title>
     
     <link id="dynamic-favicon" rel="icon" type="image/png" href="">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,9 +12,9 @@
 
     <style>
         :root {
-            --glass: rgba(15, 15, 15, 0.5); 
+            --glass: rgba(15, 15, 15, 0.6); 
             --border: rgba(255, 255, 255, 0.1);
-            --glow: 0 0 20px rgba(255, 255, 255, 0.4); 
+            --glow: 0 0 20px rgba(255, 255, 255, 0.3); 
             --custom-cursor: url('https://cur.cursors-4u.net/games/gam-4/gam372.cur');
         }
 
@@ -38,31 +38,20 @@
             object-fit: cover; filter: brightness(0.4) blur(2px);
         }
 
+        /* Adjusted Card for Mobile Breathing Room */
         .card {
             background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
-            border: 1px solid var(--border); border-radius: 24px; padding: 40px; 
-            width: 90%; max-width: 400px;
-            text-align: center; 
-            box-shadow: 0 0 25px rgba(255, 255, 255, 0.15), 0 25px 60px rgba(0,0,0,0.9);
+            border: 1px solid var(--border); border-radius: 24px; padding: 35px; 
+            width: 90%; max-width: 380px; text-align: center; 
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.1), 0 25px 60px rgba(0,0,0,0.9);
             position: relative; z-index: 10;
-            transition: all 0.3s ease;
-        }
-
-        @media (max-width: 480px) {
-            .card { padding: 25px 20px; max-width: 330px; }
-            .username { font-size: 1.8rem; }
-            .avatar-container { width: 85px; height: 85px; }
-            .social-icon { width: 40px; height: 40px; font-size: 1.1rem; }
-            .box { padding: 10px; margin-top: 10px; gap: 10px; }
         }
 
         .avatar-container { position: relative; width: 100px; height: 100px; margin: 0 auto 15px; }
         .avatar-main { 
             width: 100%; height: 100%; border-radius: 50%; 
             border: 2px solid rgba(255,255,255,0.2); object-fit: cover;
-            transition: box-shadow 0.3s ease;
         }
-        .avatar-container:hover .avatar-main { box-shadow: var(--glow); }
 
         .status-badge { position: absolute; bottom: 5px; right: 5px; width: 18px; height: 18px; border-radius: 50%; border: 3px solid #141414; z-index: 11; }
         .online { background: #43b581; }
@@ -70,81 +59,56 @@
         .idle { background: #faa61a; }
         .offline { background: #747f8d; }
 
-        #name-wrapper { position: relative; display: inline-block; padding: 0 20px; text-shadow: 0 0 10px rgba(255, 255, 255, 0.2); }
-        .username { font-size: 2.2rem; font-weight: 800; background: linear-gradient(to bottom, #fff, #888); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
+        #name-wrapper { position: relative; display: inline-block; padding: 0 20px; }
+        .username { 
+            font-size: 2.2rem; font-weight: 800; background: linear-gradient(to bottom, #fff, #888); 
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; 
+        }
         
         .particle { position: absolute; border-radius: 50%; pointer-events: none; z-index: 1; filter: blur(0.5px); animation: fall linear forwards; }
         @keyframes fall {
             0% { transform: translateY(-35px); opacity: 0; }
             20% { opacity: 1; }
-            70% { opacity: 1; }
             100% { transform: translateY(15px); opacity: 0; } 
         }
         
-        .socials { display: flex; justify-content: center; gap: 15px; margin: 15px 0 25px; }
+        .socials { display: flex; justify-content: center; gap: 12px; margin: 15px 0 20px; }
         .social-icon {
-            width: 46px; height: 46px; background: rgba(255,255,255,0.08); border: 1px solid var(--border);
+            width: 44px; height: 44px; background: rgba(255,255,255,0.06); border: 1px solid var(--border);
             border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            color: white; text-decoration: none; font-size: 1.3rem; 
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: white; text-decoration: none; font-size: 1.2rem; transition: 0.3s;
         }
-        .social-icon:hover { transform: scale(1.2) rotate(10deg); box-shadow: var(--glow); }
+        .social-icon:hover { transform: scale(1.1); box-shadow: var(--glow); }
 
         .box {
             background: rgba(0, 0, 0, 0.4); border: 1px solid var(--border); border-radius: 16px;
-            padding: 12px 18px; margin-top: 15px; display: flex; align-items: center; gap: 15px; text-align: left;
-            text-decoration: none; color: inherit; transition: all 0.3s ease;
+            padding: 12px; margin-top: 12px; display: flex; align-items: center; gap: 12px; text-align: left;
+            text-decoration: none; color: inherit;
         }
-        .box:hover { box-shadow: var(--glow); }
-        .pfp-small { width: 48px; height: 48px; border-radius: 12px; object-fit: cover; }
+        .pfp-small { width: 45px; height: 45px; border-radius: 10px; object-fit: cover; }
         
-        .mini-progress { width: 100%; margin-top: 8px; display: none; }
+        .mini-progress { width: 100%; margin-top: 8px; }
         .progress-bg { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
-        #progress-fill { width: 0%; height: 100%; background: #fff; box-shadow: 0 0 10px #fff; }
-        .progress-times { display: flex; justify-content: space-between; font-size: 0.65rem; color: #888; margin-top: 4px; }
+        #progress-fill { width: 0%; height: 100%; background: #fff; box-shadow: 0 0 8px #fff; }
+        .progress-times { display: flex; justify-content: space-between; font-size: 0.65rem; color: #777; margin-top: 4px; }
 
-        /* --- RESTORED GLOWING PLAYER --- */
-        .profile-player { 
-            margin-top: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 18px; padding: 20px; border: 1px solid var(--border); 
-            display: flex; flex-direction: column; gap: 12px; transition: all 0.3s ease;
-        }
-        .profile-player:hover { box-shadow: var(--glow); }
-        .player-row { display: flex; align-items: center; gap: 15px; position: relative; }
-        
-        #audio-progress-container { flex-grow: 1; height: 5px; background: rgba(255,255,255,0.1); border-radius: 5px; cursor: pointer; overflow: hidden; }
-        #audio-progress-bar { width: 0%; height: 100%; background: #fff; box-shadow: 0 0 10px #fff; }
+        .profile-player { margin-top: 20px; background: rgba(0, 0, 0, 0.3); border-radius: 18px; padding: 15px; border: 1px solid var(--border); }
+        #audio-controls { display: flex; align-items: center; gap: 12px; }
+        #audio-progress-container { flex-grow: 1; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
+        #audio-progress-bar { width: 0%; height: 100%; background: #fff; }
 
-        /* --- AMAZING VERTICAL VOLUME SLIDER --- */
-        .volume-wrapper { position: relative; display: flex; align-items: center; justify-content: center; }
-        
-        .volume-slider-container {
-            position: absolute; bottom: 35px; left: 50%; transform: translateX(-50%);
-            background: rgba(15, 15, 15, 0.95); border: 1px solid var(--border);
-            padding: 15px 10px; border-radius: 12px; display: none;
-            flex-direction: column; align-items: center; z-index: 100;
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
-        }
-
-        .volume-wrapper:hover .volume-slider-container { display: flex; }
-
-        .volume-slider {
-            -webkit-appearance: none; appearance: none;
-            width: 5px; height: 80px; background: rgba(255,255,255,0.1); border-radius: 10px; outline: none;
-            cursor: pointer; writing-mode: bt-lr; -webkit-appearance: slider-vertical;
-        }
-
-        /* The Glow Thumb from your screenshot */
-        .volume-slider::-webkit-slider-thumb {
-            -webkit-appearance: none; appearance: none;
-            width: 14px; height: 14px; background: #fff; border-radius: 4px;
-            box-shadow: 0 0 15px 4px rgba(255,255,255,0.9); /* Intense Glow */
-            border: 1px solid #000; cursor: pointer;
+        /* Mobile Tweaks */
+        @media (max-width: 480px) {
+            .card { padding: 22px; max-width: 330px; }
+            .username { font-size: 1.8rem; }
+            .avatar-container { width: 85px; height: 85px; }
+            .social-icon { width: 40px; height: 40px; font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
 
-    <div id="splash" onclick="enterSite()"><div style="letter-spacing:5px; font-weight:700;">[ CLICK TO ENTER ]</div></div>
+    <div id="splash" onclick="enterSite()"><div style="letter-spacing:5px; font-weight:700; font-size: 0.9rem;">[ CLICK TO ENTER ]</div></div>
 
     <video loop muted playsinline id="bg-video">
         <source src="background.mp4" type="video/mp4">
@@ -157,7 +121,7 @@
         </div>
 
         <div id="name-wrapper"><h1 class="username">xan</h1></div>
-        <p style="color:#777; margin-bottom:10px;">@xanipulate</p>
+        <p style="color:#777; margin-bottom:10px; font-size: 0.9rem;">@xanipulate</p>
 
         <div class="socials">
             <a href="https://www.instagram.com/olekyyy/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
@@ -168,8 +132,8 @@
         <div id="activity-link" class="box">
             <img id="activity-pfp" class="pfp-small" src="">
             <div style="flex-grow: 1; overflow: hidden;">
-                <div id="activity-text" style="font-size: 0.85rem; line-height: 1.4;">Connecting...</div>
-                <div id="mini-bar" class="mini-progress">
+                <div id="activity-text" style="font-size: 0.8rem; line-height: 1.4;">Connecting...</div>
+                <div id="mini-bar" class="mini-progress" style="display:none;">
                     <div class="progress-bg"><div id="progress-fill"></div></div>
                     <div class="progress-times"><span id="curr">0:00</span><span id="total">0:00</span></div>
                 </div>
@@ -178,28 +142,17 @@
 
         <a href="https://www.roblox.com/users/1115362461/profile" target="_blank" class="box">
             <img id="rbx-pfp" class="pfp-small" src="">
-            <div><strong id="rbx-display">Roblox</strong><br><span id="rbx-user" style="color: #888; font-size: 0.8rem;">@Loading</span></div>
+            <div><strong id="rbx-display" style="font-size: 0.85rem;">Roblox</strong><br><span id="rbx-user" style="color: #888; font-size: 0.75rem;">@Loading</span></div>
         </a>
 
         <div class="profile-player">
-            <div class="player-row">
-                <i id="play-icon" class="fas fa-play" style="width: 20px; cursor: pointer;"></i>
-                
-                <div style="flex-grow: 1;">
-                    <div id="audio-progress-container">
-                        <div id="audio-progress-bar"></div>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.65rem; color: #555; margin-top: 8px;">
-                        <span id="audio-curr">0:00</span><span id="audio-total">0:00</span>
-                    </div>
-                </div>
-
-                <div class="volume-wrapper">
-                    <div class="volume-slider-container">
-                        <input type="range" id="volume-ctrl" class="volume-slider" min="0" max="1" step="0.01" value="0.5">
-                    </div>
-                    <i id="vol-icon" class="fas fa-volume-up" style="font-size: 0.9rem; cursor: pointer; opacity: 0.7;"></i>
-                </div>
+            <div id="audio-controls">
+                <i id="play-icon" class="fas fa-play" style="width: 15px; font-size: 0.9rem;"></i>
+                <div id="audio-progress-container"><div id="audio-progress-bar"></div></div>
+                <i class="fas fa-volume-up" style="font-size: 0.8rem; opacity: 0.6;"></i>
+            </div>
+            <div style="display: flex; justify-content: space-between; font-size: 0.65rem; color: #555; margin-top: 8px;">
+                <span id="audio-curr">0:00</span><span id="audio-total">0:00</span>
             </div>
         </div>
     </div>
@@ -211,20 +164,19 @@
         let spotifyInt;
         const audio = document.getElementById('main-audio');
         const playBtn = document.getElementById('play-icon');
-        const volSlider = document.getElementById('volume-ctrl');
 
         function spawnParticle() {
             if (document.hidden) return;
             const p = document.createElement('div');
             p.className = 'particle';
-            const size = Math.random() * 3 + 2; 
+            const size = Math.random() * 2 + 2; 
             p.style.width = `${size}px`; p.style.height = `${size}px`; p.style.left = `${Math.random() * 100}%`;
-            p.style.background = '#fff'; p.style.boxShadow = `0 0 10px 2px rgba(255,255,255,0.8)`;
-            const duration = Math.random() * 2 + 1.5; p.style.animationDuration = `${duration}s`;
+            p.style.background = '#fff'; p.style.boxShadow = `0 0 8px 1px rgba(255,255,255,0.7)`;
+            const duration = Math.random() * 2 + 1; p.style.animationDuration = `${duration}s`;
             document.getElementById('name-wrapper').appendChild(p);
             setTimeout(() => p.remove(), duration * 1000);
         }
-        setInterval(spawnParticle, 300);
+        setInterval(spawnParticle, 400);
 
         function enterSite() {
             document.getElementById('splash').classList.add('hidden');
@@ -235,20 +187,6 @@
         playBtn.onclick = () => {
             if (audio.paused) { audio.play(); playBtn.className = "fas fa-pause"; } 
             else { audio.pause(); playBtn.className = "fas fa-play"; }
-        };
-
-        volSlider.oninput = (e) => {
-            audio.volume = e.target.value;
-            const icon = document.getElementById('vol-icon');
-            if (audio.volume == 0) icon.className = "fas fa-volume-mute";
-            else if (audio.volume < 0.5) icon.className = "fas fa-volume-down";
-            else icon.className = "fas fa-volume-up";
-        };
-
-        document.getElementById('audio-progress-container').onclick = (e) => {
-            const rect = e.target.getBoundingClientRect();
-            const pos = (e.clientX - rect.left) / rect.width;
-            audio.currentTime = pos * audio.duration;
         };
 
         audio.ontimeupdate = () => {
@@ -292,7 +230,9 @@
             }
 
             if (d.listening_to_spotify && d.spotify) {
-                text.innerHTML = `Listening to <b>${d.spotify.song || "Song"}</b><br><span style="color:#888;">by ${d.spotify.artist || "Artist"}</span>`;
+                const song = d.spotify.song || "Song";
+                const artist = d.spotify.artist || "Artist";
+                text.innerHTML = `Listening to <b>${song}</b><br><span style="color:#888;">by ${artist}</span>`;
                 pfp.src = d.spotify.album_art_url || avatarUrl;
                 bar.style.display = 'block';
                 startBar(d.spotify.timestamps);
