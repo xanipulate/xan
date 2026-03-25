@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>xan</title>
+    <title>xanz</title>
     
     <link id="dynamic-favicon" rel="icon" type="image/png" href="">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -38,28 +38,22 @@
             object-fit: cover; filter: brightness(0.4) blur(2px);
         }
 
-        /* --- UPDATED CARD FOR MOBILE OPTIMIZATION --- */
         .card {
             background: var(--glass); backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
             border: 1px solid var(--border); border-radius: 24px; padding: 40px; 
-            width: 90%; max-width: 400px; /* Responsive width */
+            width: 90%; max-width: 400px;
             text-align: center; 
             box-shadow: 0 0 25px rgba(255, 255, 255, 0.15), 0 25px 60px rgba(0,0,0,0.9);
             position: relative; z-index: 10;
             transition: all 0.3s ease;
         }
 
-        /* MOBILE SPECIFIC OVERRIDES */
         @media (max-width: 480px) {
-            .card {
-                padding: 25px 20px; /* Tighter padding */
-                max-width: 330px; /* Slimmer box to see more background */
-            }
+            .card { padding: 25px 20px; max-width: 330px; }
             .username { font-size: 1.8rem; }
             .avatar-container { width: 85px; height: 85px; }
             .social-icon { width: 40px; height: 40px; font-size: 1.1rem; }
             .box { padding: 10px; margin-top: 10px; gap: 10px; }
-            .pfp-small { width: 42px; height: 42px; }
         }
 
         .avatar-container { position: relative; width: 100px; height: 100px; margin: 0 auto 15px; }
@@ -109,11 +103,29 @@
         #progress-fill { width: 0%; height: 100%; background: #fff; box-shadow: 0 0 10px #fff; }
         .progress-times { display: flex; justify-content: space-between; font-size: 0.65rem; color: #888; margin-top: 4px; }
 
-        .profile-player { margin-top: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 18px; padding: 18px; border: 1px solid var(--border); transition: all 0.3s ease; }
+        /* --- RESTORED GLOWING PLAYER --- */
+        .profile-player { 
+            margin-top: 20px; background: rgba(0, 0, 0, 0.4); border-radius: 18px; padding: 20px; border: 1px solid var(--border); 
+            display: flex; flex-direction: column; gap: 12px; transition: all 0.3s ease;
+        }
         .profile-player:hover { box-shadow: var(--glow); }
-        #audio-controls { display: flex; align-items: center; gap: 10px; width: 100%; }
-        #audio-progress-container { flex-grow: 1; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; }
+        .player-row { display: flex; align-items: center; gap: 15px; }
+        
+        #audio-progress-container { flex-grow: 1; height: 5px; background: rgba(255,255,255,0.1); border-radius: 5px; cursor: pointer; overflow: hidden; }
         #audio-progress-bar { width: 0%; height: 100%; background: #fff; box-shadow: 0 0 10px #fff; }
+
+        /* AMAZING VERTICAL SLIDER */
+        .volume-zone { display: flex; flex-direction: column; align-items: center; gap: 8px; width: 30px; }
+        .volume-slider {
+            -webkit-appearance: none; appearance: none;
+            width: 4px; height: 60px; background: rgba(255,255,255,0.1); border-radius: 10px; outline: none;
+            cursor: pointer; writing-mode: bt-lr; -webkit-appearance: slider-vertical;
+        }
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none; appearance: none;
+            width: 12px; height: 12px; background: #fff; border-radius: 50%;
+            box-shadow: 0 0 15px 2px #fff; border: 2px solid #000;
+        }
     </style>
 </head>
 <body>
@@ -156,13 +168,22 @@
         </a>
 
         <div class="profile-player">
-            <div id="audio-controls">
-                <i id="play-icon" class="fas fa-play" style="width: 16px;"></i>
-                <div id="audio-progress-container"><div id="audio-progress-bar"></div></div>
-                <i class="fas fa-volume-up" style="opacity:0.5; font-size:0.8rem;"></i>
-            </div>
-            <div style="display: flex; justify-content: space-between; font-size: 0.7rem; color: #555; margin-top: 10px;">
-                <span id="audio-curr">0:00</span><span id="audio-total">0:00</span>
+            <div class="player-row">
+                <i id="play-icon" class="fas fa-play" style="width: 20px; cursor: pointer;"></i>
+                
+                <div style="flex-grow: 1;">
+                    <div id="audio-progress-container">
+                        <div id="audio-progress-bar"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.65rem; color: #555; margin-top: 8px;">
+                        <span id="audio-curr">0:00</span><span id="audio-total">0:00</span>
+                    </div>
+                </div>
+
+                <div class="volume-zone">
+                    <input type="range" id="volume-ctrl" class="volume-slider" min="0" max="1" step="0.01" value="0.5">
+                    <i id="vol-icon" class="fas fa-volume-up" style="font-size: 0.7rem; opacity: 0.5;"></i>
+                </div>
             </div>
         </div>
     </div>
@@ -174,6 +195,7 @@
         let spotifyInt;
         const audio = document.getElementById('main-audio');
         const playBtn = document.getElementById('play-icon');
+        const volSlider = document.getElementById('volume-ctrl');
 
         function spawnParticle() {
             if (document.hidden) return;
@@ -197,6 +219,21 @@
         playBtn.onclick = () => {
             if (audio.paused) { audio.play(); playBtn.className = "fas fa-pause"; } 
             else { audio.pause(); playBtn.className = "fas fa-play"; }
+        };
+
+        // Volume Logic
+        volSlider.oninput = (e) => {
+            audio.volume = e.target.value;
+            const icon = document.getElementById('vol-icon');
+            if (audio.volume == 0) icon.className = "fas fa-volume-mute";
+            else icon.className = "fas fa-volume-up";
+        };
+
+        // Click to Seek Logic
+        document.getElementById('audio-progress-container').onclick = (e) => {
+            const rect = e.target.getBoundingClientRect();
+            const pos = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = pos * audio.duration;
         };
 
         audio.ontimeupdate = () => {
@@ -239,7 +276,6 @@
                 return;
             }
 
-            // --- ADDED FAILSAFE FOR UNDEFINED SPOTIFY TEXT ---
             if (d.listening_to_spotify && d.spotify) {
                 const song = d.spotify.song || "Song";
                 const artist = d.spotify.artist || "Artist";
@@ -250,7 +286,7 @@
                 return;
             }
 
-            text.innerHTML = " "; pfp.src = avatarUrl;
+            text.innerHTML = "Chilling"; pfp.src = avatarUrl;
         }
 
         function startBar(ts) {
