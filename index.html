@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>xan</title>
+    <title>xan | @olekyyy</title>
     
     <link id="dynamic-favicon" rel="icon" type="image/png" href="">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -182,7 +182,7 @@
         </div>
     </div>
 
-    <audio id="main-audio" src="music.mp3"></audio>
+    <audio id="main-audio" src="music.mp3" loop></audio>
 
     <script>
         const ID = { discord: "1290742786563506237", roblox: "1115362461" };
@@ -287,7 +287,6 @@
                 return;
             }
 
-            // --- FIXED SPOTIFY LOGIC ---
             if (d.listening_to_spotify && d.spotify) {
                 text.innerHTML = `Listening to <b>${d.spotify.song || "Song"}</b><br><span style="color:#888;">by ${d.spotify.artist || "Artist"}</span>`;
                 pfp.src = d.spotify.album_art_url || avatarUrl;
@@ -296,7 +295,7 @@
                 return;
             }
 
-            text.innerHTML = " "; pfp.src = avatarUrl;
+            text.innerHTML = "Chilling"; pfp.src = avatarUrl;
         }
 
         function startBar(ts) {
