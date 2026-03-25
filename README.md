@@ -1,2 +1,0 @@
-fix mobile
-main website
